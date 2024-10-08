@@ -34,5 +34,9 @@ https://github.com/cbdb-project/cbdb_sqlite <br/>
 ## 中国历代人物传记 录入系统
 https://input.cbdb.fas.harvard.edu/
 
+## Folium
+Folium 是一个 Python 库，用于将数据可视化在地图上
+https://github.com/python-visualization/folium
+
 
 
