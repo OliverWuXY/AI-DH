@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1000;
+                 height: 600;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "NED", "label": "NED", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ROBERT", "label": "ROBERT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "LITTLEFINGER", "label": "LITTLEFINGER", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "VARYS", "label": "VARYS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ARYA", "label": "ARYA", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CERSEI", "label": "CERSEI", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CATELYN", "label": "CATELYN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PYCELLE", "label": "PYCELLE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JAIME", "label": "JAIME", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SANSA", "label": "SANSA", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JORY_CASSEL", "label": "JORY_CASSEL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JOFFREY", "label": "JOFFREY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "RENLY", "label": "RENLY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "BRAN", "label": "BRAN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JON", "label": "JON", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "BARRISTAN", "label": "BARRISTAN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ROBB", "label": "ROBB", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DAENERYS", "label": "DAENERYS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JORAH", "label": "JORAH", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DROGO", "label": "DROGO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "VISERYS", "label": "VISERYS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "MIRRI_MAZ_DUUR", "label": "MIRRI_MAZ_DUUR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DOREAH", "label": "DOREAH", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IRRI", "label": "IRRI", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "QOTHO", "label": "QOTHO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "RAKHARO", "label": "RAKHARO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SAM", "label": "SAM", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "JEOR", "label": "JEOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "TYRION", "label": "TYRION", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PYP", "label": "PYP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "BENJEN", "label": "BENJEN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "MAESTER_AEMON", "label": "MAESTER_AEMON", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "GRENN", "label": "GRENN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SYRIO_FOREL", "label": "SYRIO_FOREL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "WALDER", "label": "WALDER", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "LYSA", "label": "LYSA", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "RODRIK", "label": "RODRIK", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "MAESTER_LUWIN", "label": "MAESTER_LUWIN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "THEON", "label": "THEON", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "GREATJON_UMBER", "label": "GREATJON_UMBER", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "BRONN", "label": "BRONN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SHAE", "label": "SHAE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "TYWIN", "label": "TYWIN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "MORD", "label": "MORD", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SHAGGA", "label": "SHAGGA", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "YOREN", "label": "YOREN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SEPTA_MORDANE", "label": "SEPTA_MORDANE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ILLYRIO", "label": "ILLYRIO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ROS", "label": "ROS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "OSHA", "label": "OSHA", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "LORAS", "label": "LORAS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ROBIN", "label": "ROBIN", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"Weight": 192, "from": "NED", "to": "ROBERT", "width": 1}, {"Weight": 107, "from": "NED", "to": "LITTLEFINGER", "width": 1}, {"Weight": 96, "from": "NED", "to": "VARYS", "width": 1}, {"Weight": 90, "from": "NED", "to": "ARYA", "width": 1}, {"Weight": 86, "from": "NED", "to": "CERSEI", "width": 1}, {"Weight": 69, "from": "NED", "to": "CATELYN", "width": 1}, {"Weight": 68, "from": "NED", "to": "PYCELLE", "width": 1}, {"Weight": 53, "from": "NED", "to": "JAIME", "width": 1}, {"Weight": 49, "from": "NED", "to": "SANSA", "width": 1}, {"Weight": 44, "from": "NED", "to": "JORY_CASSEL", "width": 1}, {"Weight": 39, "from": "NED", "to": "JOFFREY", "width": 1}, {"Weight": 30, "from": "NED", "to": "RENLY", "width": 1}, {"Weight": 29, "from": "NED", "to": "BRAN", "width": 1}, {"Weight": 29, "from": "NED", "to": "JON", "width": 1}, {"Weight": 25, "from": "NED", "to": "BARRISTAN", "width": 1}, {"Weight": 23, "from": "NED", "to": "ROBB", "width": 1}, {"Weight": 80, "from": "ROBERT", "to": "CERSEI", "width": 1}, {"Weight": 30, "from": "ROBERT", "to": "RENLY", "width": 1}, {"Weight": 28, "from": "ROBERT", "to": "JOFFREY", "width": 1}, {"Weight": 22, "from": "ROBERT", "to": "BARRISTAN", "width": 1}, {"Weight": 154, "from": "DAENERYS", "to": "JORAH", "width": 1}, {"Weight": 91, "from": "DAENERYS", "to": "DROGO", "width": 1}, {"Weight": 66, "from": "DAENERYS", "to": "VISERYS", "width": 1}, {"Weight": 45, "from": "DAENERYS", "to": "MIRRI_MAZ_DUUR", "width": 1}, {"Weight": 34, "from": "DAENERYS", "to": "DOREAH", "width": 1}, {"Weight": 32, "from": "DAENERYS", "to": "IRRI", "width": 1}, {"Weight": 28, "from": "DAENERYS", "to": "QOTHO", "width": 1}, {"Weight": 43, "from": "JORAH", "to": "VISERYS", "width": 1}, {"Weight": 30, "from": "JORAH", "to": "RAKHARO", "width": 1}, {"Weight": 121, "from": "JON", "to": "SAM", "width": 1}, {"Weight": 60, "from": "JON", "to": "JEOR", "width": 1}, {"Weight": 45, "from": "JON", "to": "TYRION", "width": 1}, {"Weight": 42, "from": "JON", "to": "PYP", "width": 1}, {"Weight": 33, "from": "JON", "to": "BENJEN", "width": 1}, {"Weight": 28, "from": "JON", "to": "MAESTER_AEMON", "width": 1}, {"Weight": 25, "from": "JON", "to": "ROBB", "width": 1}, {"Weight": 24, "from": "JON", "to": "GRENN", "width": 1}, {"Weight": 30, "from": "SAM", "to": "PYP", "width": 1}, {"Weight": 73, "from": "LITTLEFINGER", "to": "VARYS", "width": 1}, {"Weight": 26, "from": "LITTLEFINGER", "to": "CATELYN", "width": 1}, {"Weight": 22, "from": "LITTLEFINGER", "to": "SANSA", "width": 1}, {"Weight": 27, "from": "DROGO", "to": "VISERYS", "width": 1}, {"Weight": 53, "from": "ARYA", "to": "SANSA", "width": 1}, {"Weight": 44, "from": "ARYA", "to": "SYRIO_FOREL", "width": 1}, {"Weight": 24, "from": "ARYA", "to": "JOFFREY", "width": 1}, {"Weight": 90, "from": "CATELYN", "to": "ROBB", "width": 1}, {"Weight": 41, "from": "CATELYN", "to": "TYRION", "width": 1}, {"Weight": 34, "from": "CATELYN", "to": "WALDER", "width": 1}, {"Weight": 30, "from": "CATELYN", "to": "LYSA", "width": 1}, {"Weight": 28, "from": "CATELYN", "to": "BRAN", "width": 1}, {"Weight": 28, "from": "CATELYN", "to": "JAIME", "width": 1}, {"Weight": 28, "from": "CATELYN", "to": "RODRIK", "width": 1}, {"Weight": 26, "from": "CATELYN", "to": "MAESTER_LUWIN", "width": 1}, {"Weight": 22, "from": "CATELYN", "to": "CERSEI", "width": 1}, {"Weight": 60, "from": "ROBB", "to": "THEON", "width": 1}, {"Weight": 48, "from": "ROBB", "to": "BRAN", "width": 1}, {"Weight": 31, "from": "ROBB", "to": "GREATJON_UMBER", "width": 1}, {"Weight": 86, "from": "BRONN", "to": "TYRION", "width": 1}, {"Weight": 73, "from": "TYRION", "to": "SHAE", "width": 1}, {"Weight": 61, "from": "TYRION", "to": "TYWIN", "width": 1}, {"Weight": 34, "from": "TYRION", "to": "JAIME", "width": 1}, {"Weight": 31, "from": "TYRION", "to": "MORD", "width": 1}, {"Weight": 30, "from": "TYRION", "to": "LYSA", "width": 1}, {"Weight": 22, "from": "TYRION", "to": "SHAGGA", "width": 1}, {"Weight": 22, "from": "TYRION", "to": "YOREN", "width": 1}, {"Weight": 54, "from": "CERSEI", "to": "JOFFREY", "width": 1}, {"Weight": 46, "from": "CERSEI", "to": "JAIME", "width": 1}, {"Weight": 36, "from": "CERSEI", "to": "SANSA", "width": 1}, {"Weight": 69, "from": "JOFFREY", "to": "SANSA", "width": 1}, {"Weight": 64, "from": "SANSA", "to": "SEPTA_MORDANE", "width": 1}, {"Weight": 30, "from": "VISERYS", "to": "DOREAH", "width": 1}, {"Weight": 25, "from": "VISERYS", "to": "ILLYRIO", "width": 1}, {"Weight": 34, "from": "TYWIN", "to": "JAIME", "width": 1}, {"Weight": 40, "from": "THEON", "to": "ROS", "width": 1}, {"Weight": 26, "from": "THEON", "to": "BRAN", "width": 1}, {"Weight": 25, "from": "THEON", "to": "OSHA", "width": 1}, {"Weight": 53, "from": "BRAN", "to": "MAESTER_LUWIN", "width": 1}, {"Weight": 29, "from": "BRAN", "to": "OSHA", "width": 1}, {"Weight": 27, "from": "JAIME", "to": "JORY_CASSEL", "width": 1}, {"Weight": 47, "from": "LORAS", "to": "RENLY", "width": 1}, {"Weight": 36, "from": "PYP", "to": "GRENN", "width": 1}, {"Weight": 30, "from": "LYSA", "to": "ROBIN", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
