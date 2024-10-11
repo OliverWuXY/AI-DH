@@ -41,6 +41,7 @@ pip -h
 1. https://www.anycodes.cn/
 2. https://replit.com/
 3. https://ideone.com/
+4. https://pyscript.com/
 
 
 
