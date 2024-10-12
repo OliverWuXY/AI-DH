@@ -5,11 +5,13 @@ import folium
 '''
 places_df = pd.read_csv('../data/历史地名-fromCBDB.csv')
 print(places_df.columns)
-# print(places_df.head())
-# print(places_df['belongs1_Name'])
+print(places_df.head())
+print(places_df['belongs1_Name'])
 print(set(places_df['belongs4_Name']))
+
 song_df = places_df[places_df['belongs4_Name'] =='宋朝']
 print(song_df['c_name_chn'])
+# song_df = places_df
 
 import folium
 import pandas as pd
@@ -38,5 +40,5 @@ for i, row in data.iterrows():
     ).add_to(m)
 
 # 保存地图到HTML文件
-m.save('map_song.html')
+m.save('map_song888.html')
 

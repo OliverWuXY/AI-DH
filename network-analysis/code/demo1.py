@@ -7,12 +7,12 @@ ProjDir = "E:/PythonProj/AI_DH/network-analysis/"
 df = pd.read_csv(ProjDir + "data/gameofthrones-master/got-s1-edges.csv")
 orginalDf = df
 
-# print(df.head)
-# print(df.columns)
+print(df.head)
+print(df.columns)
 # 数据表头
 # Source,Target,Weight,Season
 # pick only important weights (hard threshold)
-df = df.loc[df['Weight']>20, :]
+df = df.loc[df['Weight']>10, :]
 # print(df)
 
 
@@ -21,9 +21,9 @@ G = nx.from_pandas_edgelist(df,
                             source='Source',
                             target='Target',
                             edge_attr='Weight')
-print("Number of unique characters:", len(G.nodes))
-print("Number of connections:", len(G.edges))
-
+# print("Number of unique characters:", len(G.nodes))
+# print("Number of connections:", len(G.edges))
+#
 # # 度中心性
 # # 度中心性是衡量网络中节点重要性的指标。它只是连接到节点的边的数量，由节点的最大可能度标准化。
 # degree_centrality = nx.degree_centrality(G)
@@ -61,13 +61,13 @@ print("Number of connections:", len(G.edges))
 # plt.show()
 
 
-# # https://github.com/imohitmayank/got_network_viz_python
-#
-# # all graph options
+# # # https://github.com/imohitmayank/got_network_viz_python
+# #
+# # # all graph options
 # graphs_viz_options = [nx.draw, nx.draw_networkx, nx.draw_circular, nx.draw_kamada_kawai, nx.draw_random, nx.draw_shell, nx.draw_spring]
-#
+# #
 # # plot graph option
-# selected_graph_option = 1
+# selected_graph_option = 3
 # # plot
 # plt.figure(figsize=(8,6), dpi=100)
 # graphs_viz_options[selected_graph_option](G)
@@ -78,23 +78,23 @@ print("Number of connections:", len(G.edges))
 
 # # https://pyvis.readthedocs.io/en/latest/
 # # https://zhuanlan.zhihu.com/p/680750111
-# # import pyvis
+# import pyvis
 # from pyvis.network import Network
 # # create vis network
 # net = Network(notebook=True, width=1000, height=600)
 # # load the networkx graph
 # net.from_nx(G)
-# net.show("pyvisExample.html",local=True)
+# net.show("pyvisExample111.html",local=True)
 
 
 # 教程 https://towardsdatascience.com/introducing-jaal-interacting-with-network-made-easy-124173bb4fa
 # github：https://github.com/imohitmayank/jaal
 
 from jaal import Jaal
-# from jaal.datasets import load_got
+from jaal.datasets import load_got
 # # load the data
 # edge_df, node_df = load_got()
-# init Jaal and run server
+# # init Jaal and run server
 # Jaal(edge_df, node_df).plot()
 
 edge_df = orginalDf

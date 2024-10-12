@@ -14,7 +14,7 @@ setapikey("demo")    # This allows us access to the data used in these tutorials
 # titles = gettexttitles()
 # print(titles)#所有书 json格式，{{'books': [{'title': '考信編', 'urn': 'ctp:wb7754238'},...]}
 # print(str(titles)[0:200])
-# # 思考如知道一共有多少本书？？ json格式是否可以转成表格式格式呢？
+# # # 思考如知道一共有多少本书？？ json格式是否可以转成表格式格式呢？
 
 # capabilities = getcapabilities()
 # print(capabilities)
@@ -54,11 +54,11 @@ setapikey("demo")    # This allows us access to the data used in these tutorials
 # print("Second chapters is: " + chapters[1])
 # print("Last chapters is: " + chapters[-1])
 #
-# passages = gettextasparagrapharray("ctp:analects")  # 论语
-# print("Total number of passages: " + str(len(passages)))
-# print("First passage is: " + passages[0])
-# print("Second passage is: " + passages[1])
-# print("Last passage is: " + passages[-1])
+passages = gettextasparagrapharray("ctp:analects")  # 论语
+print("Total number of passages: " + str(len(passages)))
+print("First passage is: " + passages[0])
+print("Second passage is: " + passages[1])
+print("Last passage is: " + passages[-1])
 
 
 # passages = gettextasparagrapharray("ctp:mengzi")  # 孟子
